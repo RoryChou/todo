@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>树，二叉树，二叉搜索树</title>
+</head>
+<body>
+<script>
+  // 实现一个二叉树
+  function BinaryTree (val) {
+    var obj = {}
+    obj.val = val
+    if()
+    obj.left = null
+    obj.right = null
+
+  }
+
+  /**
+   * Definition for a binary tree node.
+   * function TreeNode(val) {
+   *     this.val = val;
+   *     this.left = this.right = null;
+   * }
+   */
+  /**
+   * @param {TreeNode} root
+   * @return {number[]}
+   */
+  var preorderTraversal = function(root) {
+    let res = []
+    function preorder (root) {
+      if(root === null) return
+      res.push(root.val)
+      preorder(root.left)
+      preorder(root.right)
+    }
+    preorder(root)
+    return res
+  };
+</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>递归</title>
+</head>
+<body>
+<script>
+  // 递归与循环没有明显的边界，编译器里面的循环就是用递归实现的
+
+  // 计算!n, 1*2*3...*n
+  function nr (val) {
+    if(val === 1) return 1
+    return val * nr(val - 1)
+  }
+  // 递归模板
+  const recursion = (level, params) =>{
+    // recursion terminator
+    if(level > MAX_LEVEL){
+      process_result
+      return
+    }
+    // process current level
+    process(level, params)
+    //drill down
+    recursion(level+1, params)
+    //clean current level status if needed
+
+  }
+
+  /**
+   * @param {number} n
+   * @return {number}
+   */
+  var climbStairs = function(n) {
+    var h = {}
+    function fab (n) {
+      if(n <= 1) return n
+      if(!h[n]) {
+        h[n] = fab(n - 1) + fab(n - 2)
+      }
+      return h[n]
+    }
+
+    return fab(n)
+  };
+
+  /**
+   *  斐波那契数列
+   * */
+  var h = {}
+  function fab (n) {
+    if(n <= 1) return n
+    if(!h[n]) {
+      h[n] = fab(n - 1) + fab(n - 2)
+    }
+    return h[n]
+  }
+
+  /**
+   * leetcode22 括号
+   * @param {number} n
+   * @return {string[]}
+   */
+  var generateParenthesis = function(n) {
+    var res = []
+
+    function recur (left, right, n, str) {
+      if(left === n && right === n) {
+        res.push(str)
+        return
+      }
+
+      if(left< n) recur(left+1,right,n,str+'(')
+      if(left>right) recur(left,right+1,n,str+')')
+    }
+
+    recur(0,0,n,'')
+
+    return res
+  };
+
+  /**
+   * Definition for a binary tree node.
+   * function TreeNode(val) {
+   *     this.val = val;
+   *     this.left = this.right = null;
+   * }
+   */
+  /**
+   * @param {TreeNode} root
+   * @return {boolean}
+   */
+  var isValidBST = function(root) {
+    return recur(root,Number.MIN_SAFE_INTEGER,Number.MAX_SAFE_INTEGER)
+    function recur (node, min,max) {
+      if(node=== null) return true
+      var val = node.val
+      if(val<=min || val >= max) {
+        return false
+      }
+      return recur(node.left,min,val) && recur(node.right,val,max)
+    }
+  };
+
+  var isValidBST = function(root) {
+    let stack = [];
+    let inorder = -Infinity;
+
+    while (stack.length || root !== null) {
+      while (root !== null) {
+        stack.push(root);
+        root = root.left;
+      }
+      root = stack.pop();
+      // 如果中序遍历得到的节点的值小于等于前一个 inorder，说明不是二叉搜索树
+      if (root.val <= inorder) {
+        return false;
+      }
+      inorder = root.val;
+      root = root.right;
+    }
+    return true;
+  };
+
+</script>
+</body>
+</html>

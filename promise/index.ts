@@ -4,7 +4,7 @@ const STATUS_FULFILLED = 'fulfilled'
 const STATUS_REJECTED = 'rejected'
 
 interface Executor {
-  (resolve:(res?:any) => void, reject?:(err?:any) => void)
+  (resolve:(res?:any) => void, reject?:(err?:any) => void):void
 }
 class MyPromise {
   private value:any = ''
@@ -43,6 +43,7 @@ class MyPromise {
       // 8.1
       if (this.status === STATUS_FULFILLED) {
         // todo 推入微任务，目的是为了将promise2传入_resolvePromise内
+        // 浏览器环境没有微任务方法，只能用setTimeout模拟，但是setTimeout是宏任务
         setTimeout(() => {
           try {
             // todo 如果val还是一个promise呢？递归处理
@@ -153,6 +154,21 @@ class MyPromise {
     // return obj instanceof MyPromise
   }
 }
+
+var example = new MyPromise((resolve, reject) => {
+  setTimeout(() => {
+    // resolve函数做了三件事
+    // 1. 将example状态设置为fulfilled
+    // 2. 将example内部value值设置为123
+    // 3. 执行example内部的回调函数队列
+    resolve(123)
+  }, 2000)
+})
+
+// then函数挂载回调函数至example
+example.then(res => {
+  console.log('then', res)
+})
 
 
 

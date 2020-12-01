@@ -201,3 +201,24 @@ console.log('log: 外部第二个then 之前', promise2.toString())
 var promise6 = promise2.then(function () {
     console.log("log: 外部第二个then");
 })
+new Promise((resolve, reject) => {
+    console.log('log: 外部promise')
+    resolve()
+}).then(function () {
+    console.log("log: 外部第一个then");
+    // var promise3 = new Promise((resolve, reject) => {
+    //     console.log('log: 内部promise')
+    //     resolve()
+    // })
+    // console.log("log: 内部第一个then 之前");
+    // var promise4 = promise3.then(function () {
+    //     console.log("log: 内部第一个then");
+    // })
+    // console.log("log: 内部第一个then 之后")
+    // var promise5 = promise4.then(function () {
+    //     console.log("log: 内部第二个then");
+    // })
+    // console.log("log: 内部第二个then 之后")
+}).then(function () {
+    console.log("log: 外部第二个then");
+})

@@ -21,11 +21,12 @@ function updateView () {
 
 var oldPro = Array.prototype
 // 挂载原型用
-var newPro = Object.create(oldPro)
-['push','pop','shift','unshift'].forEach(item => {
+var newPro = Object.create(oldPro);
+var arr = ['push','pop','shift','unshift']
+arr.forEach(item => {
   newPro[item] = function () {
     updateView()
-    oldPro.call(this,arguments)
+    oldPro[item].call(this,arguments)
   }
 })
 
@@ -48,10 +49,11 @@ var data = {
   age: 11,
   some: {
     a: 1
-  }
+  },
+  arr: []
 }
 
 observeObj(data)
 
-data.name = 123
-data.name = 1233
+// data.name = 123
+// data.name = 1233

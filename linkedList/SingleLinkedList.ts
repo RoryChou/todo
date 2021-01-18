@@ -32,3 +32,13 @@ class SingleLinkedList {
 
     }
 }
+
+function test2(n = 4, max = 100) {
+    var count = 1
+    while (n>0){
+        console.log(n)
+        n--
+        count++
+        if(count>max) return false
+    }
+}

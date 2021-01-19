@@ -98,9 +98,9 @@ class Compiler {
         // 把节点中的内容进行替换
 
         // 用数据编译模板
-        this.compile(fragment)
+        // this.compile(fragment)
         // 把内容塞回页面中
-        this.el.appendChild(fragment)
+        // this.el.appendChild(fragment)
     }
     isElementNode(node) {
         return node.nodeType === 1
@@ -152,10 +152,13 @@ class Compiler {
         let fragment = document.createDocumentFragment()
         let firstChild
         while (firstChild = node.firstChild) {
-            // console.log('b', firstChild)
+            console.log('b', firstChild)
             fragment.appendChild(firstChild)
-            // console.log('e', node.firstChild)
+            console.log('e', node.firstChild)
         }
+        // let firstChild = node.firstChild
+        // fragment.appendChild(firstChild)
+        // console.log('fragment', fragment)
         return fragment
     }
 }

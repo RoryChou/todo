@@ -8,19 +8,11 @@
 </head>
 
 <body>
-    <script src="./newMVVM.js"></script>
-    <div id="app">
-        <input type="text" v-model="school.name">
-        <div>{{school.name}}</div>
-        <div>{{school.age}}</div>
-        <ul>
-            <li>a</li>
-            <li>b</li>
-        </ul>
-    </div>
+    <script src="./simpleMvvm.js"></script>
+    <div id="app"><div>{{school.name}}</div></div>
     <script>
         setTimeout(function () {
-            let vm = new NewMVVM({
+            let vm = new SimpleMvvm({
                 el: '#app',
                 data: {
                     school: {

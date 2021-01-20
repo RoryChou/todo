@@ -10,19 +10,31 @@
 <body>
     <script src="./simpleMvvm.js"></script>
     <div id="app"><div>{{school.name}}</div></div>
+    <div class="change">改变data值</div>
+    <div class="change-type">改变data类型</div>
     <script>
-        setTimeout(function () {
-            let vm = new SimpleMvvm({
-                el: '#app',
-                data: {
-                    school: {
-                        name: 'pa',
-                        age: 32
-                    }
+        let vm = new SimpleMvvm({
+            el: '#app',
+            data: {
+                name: 'aa',
+                school: {
+                    name: 'pa',
+                    age: 32
+                },
+                person: {
+                    name: 'jack',
+                    age: 22
                 }
-            })
-        }, 1000)
-
+            }
+        })
+        document.querySelector('.change').addEventListener('click', function () {
+            // 改变data值
+            vm.$data.school.name += 'bd'
+        })
+        document.querySelector('.change-type').addEventListener('click', function () {
+            // 改变data值
+            vm.$data.school = 'bd'
+        })
     </script>
 </body>
 

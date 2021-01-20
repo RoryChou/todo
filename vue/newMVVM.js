@@ -30,12 +30,14 @@ class Dep {
 }
 class Watcher {
     constructor(vm, expr, cb) {
+        console.log('Watcher',expr)
         this.vm = vm
         this.expr = expr
         this.cb = cb
         this.oldVal = this.get()
     }
     get() {
+        console.log('watcher get')
         Dep.target = this
         let val = CompileUtl.getVal(this.vm, this.expr)
         Dep.target = null
@@ -68,8 +70,9 @@ class Observer {
         let dep = new Dep()
         Object.defineProperty(obj, key, {
             get() {
-                console.log('defineProperty get')
+                console.log('defineProperty get',Dep.target,dep)
                 // 创建watcher时，会取到对应内容
+                // 将Dep上挂载的当前watcher实例，加入dep实例内部队列
                 Dep.target && dep.addSub(Dep.target)
                 return value
             },
@@ -78,11 +81,12 @@ class Observer {
                 if (newVal != value) {
                     this.observer(newVal)
                     value = newVal
+                    // 将dep实例中的watcher队列依次拿出来通知一下
                     dep.notify()
                 }
             }
         })
-        console.log('defineReactive finish')
+        console.log('defineReactive finish', obj)
     }
 }
 
@@ -98,9 +102,9 @@ class Compiler {
         // 把节点中的内容进行替换
 
         // 用数据编译模板
-        // this.compile(fragment)
+        this.compile(fragment)
         // 把内容塞回页面中
-        // this.el.appendChild(fragment)
+        this.el.appendChild(fragment)
     }
     isElementNode(node) {
         return node.nodeType === 1
@@ -134,7 +138,6 @@ class Compiler {
         // 判断文本节点中是否包含{{}}
         let txtContent = node.textContent
         if (/\{\{(.+?)\}\}/.test(txtContent)) {
-            console.log('a', txtContent)// 找到所有文本
             CompileUtl['text'](node, txtContent, this.vm)  // {{a}} {{b}}
         }
     }
@@ -189,9 +192,9 @@ let CompileUtl = {
     text(node, content, vm) {  // content {{a}} {{b}}
         let fn = this.updater['textUpdater']
         let contentVar = content.replace(/\{\{(.+?)\}\}/g, (...args) => {
-            new Watcher(vm, args[1], (newVal) => {
-                fn(node, newVal)
-            })
+            // new Watcher(vm, args[1], (newVal) => {
+            //     fn(node, newVal)
+            // })
             return this.getVal(vm, args[1])
         })
         fn(node, contentVar)

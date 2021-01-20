@@ -151,10 +151,11 @@ class Compiler {
         // 创建碎片
         let fragment = document.createDocumentFragment()
         let firstChild
+        // 换行会占一个node位置，空的text节点，所以要循环取其中真实内容
         while (firstChild = node.firstChild) {
-            console.log('b', firstChild)
+            // console.log('b', firstChild)
             fragment.appendChild(firstChild)
-            console.log('e', node.firstChild)
+            // console.log('e', node.firstChild)
         }
         // let firstChild = node.firstChild
         // fragment.appendChild(firstChild)

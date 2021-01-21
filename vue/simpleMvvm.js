@@ -73,12 +73,15 @@ class Observer {
       for (let key in data) {
         let value = data[key]
         this.observer(value)
-        // 添加响应式
+        // 添加响应式, 每个响应式属性对应一个dep实例，用来收集依赖&触发更新
         let dep = new Dep()
         let that = this
         Object.defineProperty(data, key,{
+          configurable: true,
+          enumerable: true,
           get () {
             console.log('get')
+            // 依赖收集
             dep.loadWatcher()
             return value
           },

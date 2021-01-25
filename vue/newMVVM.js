@@ -192,9 +192,9 @@ let CompileUtl = {
     text(node, content, vm) {  // content {{a}} {{b}}
         let fn = this.updater['textUpdater']
         let contentVar = content.replace(/\{\{(.+?)\}\}/g, (...args) => {
-            // new Watcher(vm, args[1], (newVal) => {
-            //     fn(node, newVal)
-            // })
+            new Watcher(vm, args[1], (newVal) => {
+                fn(node, newVal)
+            })
             return this.getVal(vm, args[1])
         })
         fn(node, contentVar)

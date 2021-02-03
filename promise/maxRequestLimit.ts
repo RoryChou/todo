@@ -11,7 +11,7 @@ function sendRequest (urls: string[],max:number,callback: () => void) {
     get(): any {
       return this.value
     },
-lln    value: 0,
+    value: 0,
     writable: true
   })
 
@@ -63,3 +63,35 @@ function promiseQueue(tasks: promiseChain[]) {
     return promise.then(task.resolveFn)
   }, Promise.resolve())
 }
+
+function sendRequestMax(urls, max, callback) {
+  let count = 0
+  function executor() {
+    if(urls.length === 0) {
+      callback()
+      return
+    }
+    if(count < max) {
+      count++
+      let url = urls.pop()
+      fetch(url).then(res => {
+        count--
+        executor()
+      }).catch(err => {
+        count--
+        executor()
+      })
+      executor()
+    }
+  }
+  executor()
+}
+let urls = []
+let i = 0
+while(i < 20) {
+  urls.push('https://www.runoob.com/jsref/met-element-addeventlistener.html')
+  i++
+}
+sendRequestMax(urls,4,function () {
+  console.log('callback')
+})

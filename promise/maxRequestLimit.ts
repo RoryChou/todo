@@ -61,26 +61,31 @@ interface promiseChain {
 function promiseQueue(tasks: promiseChain[]) {
   return tasks.reduce((promise,task) => {
     return promise.then(task.resolveFn)
+    // @ts-ignore
   }, Promise.resolve())
 }
 
 function sendRequestMax(urls, max, callback) {
   let count = 0
+  let promiseTaskQueue = []
   function executor() {
     if(urls.length === 0) {
-      callback()
+      // @ts-ignore
+      Promise.all(promiseTaskQueue).then(() => {
+        callback()
+      })
       return
     }
     if(count < max) {
       count++
       let url = urls.pop()
-      fetch(url).then(res => {
+      promiseTaskQueue.push(fetch(url).then(res => {
         count--
         executor()
       }).catch(err => {
         count--
         executor()
-      })
+      }))
       executor()
     }
   }

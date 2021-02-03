@@ -13,7 +13,7 @@
       }, time)
     })
   }
-
+  // 三种都可以
   async function forAwaitOf (arr) {
     // for await (let item of arr) {
     //   console.log(item)
@@ -22,7 +22,12 @@
     //   const res = await item
     //   console.log(res)
     // }
-    while()
+    var i= 0
+    while(i < 4) {
+      var res = await arr[i]
+      console.log(res)
+      i++
+    }
   }
 
   var arr = [asyncFn(1000),asyncFn(2000),asyncFn(3000),asyncFn(4000)]

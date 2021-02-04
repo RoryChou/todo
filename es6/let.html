@@ -6,15 +6,39 @@
 </head>
 <body>
 <script>
-  var a = 1
-  console.log(a)
-  delete a
-  console.log(a)
+  // var a = 1
+  // console.log(a)
+  // delete a
+  // console.log(a)
+  //
+  // b = 2
+  // console.log(b)
+  // delete b
+  // console.log(b)
 
-  b = 2
-  console.log(b)
-  delete b
-  console.log(b)
+  // let a = 5
+  // let a = 6
+  // console.log(a)
+
+  // console.log(c)
+  // let c = 1
+
+  // 块级作用域
+  // for(var i = 0;i<3;i++){
+  //   console.log(i)
+  // }
+  // console.log('循环外：',i)
+
+  // if(false){
+  //   var i = 5
+  // }
+  // console.log(i)
+
+  for(let i = 0;i < 3;i++){
+    setTimeout(function () {
+      console.log(i)
+    },0)
+  }
 </script>
 </body>
 </html>

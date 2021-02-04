@@ -65,27 +65,25 @@ function promiseQueue(tasks: promiseChain[]) {
   }, Promise.resolve())
 }
 
-function sendRequestMax(urls, max, callback) {
+function sendRequestMax(tasks, max, callback) {
   let count = 0
-  let promiseTaskQueue = []
+  const length = tasks.length
+  let resultQueue = []
   function executor() {
-    if(urls.length === 0) {
+    if(length === count) {
       // @ts-ignore
-      Promise.all(promiseTaskQueue).then(() => {
+      Promise.all(resultQueue).then(() => {
         callback()
       })
       return
     }
     if(count < max) {
+      let res = tasks[count]().then(() => {
+        count--
+        length !== count && executor()
+      })
+      resultQueue.push(res)
       count++
-      let url = urls.pop()
-      promiseTaskQueue.push(fetch(url).then(res => {
-        count--
-        executor()
-      }).catch(err => {
-        count--
-        executor()
-      }))
       executor()
     }
   }

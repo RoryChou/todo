@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>deeClone</title>
+</head>
+<body>
+<script>
+  function deepClone (obj, map = new WeakMap()) {
+    // 边界条件
+    if(typeof obj !== 'object'){
+      return obj
+    } else {
+      // 兼容数组
+      let newObj = Array.isArray(obj)?[]:{}
+      // 处理循环引用的问题
+      if (map.get(obj)) {
+        return map.get(obj);
+      }
+      map.set(obj, newObj);
+      for(let i in obj){
+        newObj[i] = deepClone(obj[i],map)
+      }
+      return newObj
+    }
+  }
+  var obj = {
+    a: [
+      {
+        f:'123'
+      }
+    ],
+    b: {
+      c:2,
+      d: {
+        e: 3
+      }
+    }
+  }
+  var newObj = deepClone(obj)
+  console.log(newObj)
+</script>
+</body>
+</html>

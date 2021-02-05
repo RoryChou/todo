@@ -65,36 +65,13 @@ function promiseQueue(tasks: promiseChain[]) {
   }, Promise.resolve())
 }
 
-function sendRequestMax(tasks, max, callback) {
-  let count = 0
-  const length = tasks.length
-  let resultQueue = []
-  function executor() {
-    if(length === count) {
-      // @ts-ignore
-      Promise.all(resultQueue).then(() => {
-        callback()
-      })
-      return
-    }
-    if(count < max) {
-      let res = tasks[count]().then(() => {
-        count--
-        length !== count && executor()
-      })
-      resultQueue.push(res)
-      count++
-      executor()
-    }
-  }
-  executor()
-}
-let urls = []
-let i = 0
-while(i < 20) {
-  urls.push('https://www.runoob.com/jsref/met-element-addeventlistener.html')
-  i++
-}
+
+// let urls = []
+// let i = 0
+// while(i < 20) {
+//   urls.push('https://www.runoob.com/jsref/met-element-addeventlistener.html')
+//   i++
+// }
 sendRequestMax(urls,4,function () {
   console.log('callback')
 })

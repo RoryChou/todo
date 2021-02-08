@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>数组扩展</title>
+</head>
+<body>
+<script type="module">
+  // 类数组
+  var divs = document.getElementsByTagName('div')
+  console.log(divs)
+
+  let divs2 = document.querySelectorAll('.div')
+  // NodeList
+  console.log(divs2)
+
+  Array.from(divs)
+
+  // Array.of
+  let arr = new Array(1,2)
+  console.log(arr)
+  let arr1 = new Array(3)
+  console.log(arr1)
+  let arr2 = Array.of(3)
+  console.log(arr2)
+
+  // Array.copyWithin
+
+  // fill
+  let arr4 = [1,2,3,4,5]
+  arr4.fill('asd',1,3)
+  console.log(arr4)
+
+  //includes
+  // 相比于indexof，可以准确判断NaN
+  let arr5 = [1,2,3,NaN]
+  console.log(arr5.indexOf(NaN))
+  console.log(arr5.includes(NaN))
+</script>
+</body>
+</html>

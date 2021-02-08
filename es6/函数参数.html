@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>函数参数</title>
+</head>
+<body>
+<script type="module">
+  function foo (x, y,z=5) {
+    console.log(x,y,z)
+  }
+  foo(1,2,3)
+  // 函数的length属性,返回没有指定默认值的参数个数
+  console.log(foo.length)
+
+  // 函数参数的作用域，可以向上查找，不能向函数体内查找
+  // let x = 1
+  function some (y=x) {
+    let x = 2
+    console.log(y)
+  }
+  some()
+</script>
+</body>
+</html>

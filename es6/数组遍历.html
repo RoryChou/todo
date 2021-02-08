@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>数组遍历</title>
+</head>
+<body>
+<script type="module">
+  // 采用for in 方法遍历数组不太好
+  let arr = [1,2,3,4]
+  Array.prototype.foo = function () {
+
+  }
+  for(let i in arr) {
+    console.log(i,arr[i])
+  }
+</script>
+<script>
+  // for of
+</script>
+</body>
+</html>

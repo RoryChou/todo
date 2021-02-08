@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>数组</title>
+</head>
+<body>
+<script type="module">
+  let arr = [1, 2, 3]
+  for (let i in arr) {
+    console.log(i)
+  }
+  for (let i in arr.keys()) {
+    console.log(i)
+  }
+  for (let i in arr.values()) {
+    console.log(i)
+  }
+  for (let [index, item] in arr.entries()) {
+    console.log(index, item)
+  }
+</script>
+</body>
+</html>

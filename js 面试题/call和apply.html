@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h1>手写</h1>
+<h1>哪个性能更好</h1>
+<script type="module">
+  // 手写apply
+  function fn(){}
+  Function.prototype.myApply = function (context = window) {
+    // 函数内部的this就是指的调用这个函数的东西
+    context.tempFn = this
+    let res
+    if(arguments[1]) {
+      res = context.tempFn(...arguments[1])
+    } else {
+      res = context.tempFn()
+    }
+    delete context.tempFn
+    return res
+  }
+  fn.myApply({name:'aaa'},[1,2,3])
+</script>
+<script type="module">
+  // 手写call
+  function fn(){}
+  Function.prototype.myCall = function (context = window) {
+    // 函数内部的this就是指的调用这个函数的东西
+    context.tempFn = this
+    let res
+    let resArgs = Array.from(arguments).slice(1)
+
+    if(resArgs.length!==0) {
+      res = context.tempFn(resArgs)
+    } else {
+      res = context.tempFn()
+    }
+    delete context.tempFn
+    return res
+  }
+  fn.myCall({name:'aaa'})
+</script>
+</body>
+</html>

@@ -7,6 +7,8 @@
 <body>
 <h1>手写</h1>
 <h1>哪个性能更好</h1>
+<h2>答：call性能更好，尤其在参数多的情况下</h2>
+<h2>lodash在参数少于三个的时候调用apply，会直接转换为call</h2>
 <script type="module">
   // 手写apply
   function fn(){}

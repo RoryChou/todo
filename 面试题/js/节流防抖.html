@@ -5,6 +5,45 @@
   <title>Title</title>
 </head>
 <body>
+<h1>节流函数：n秒内，高频函数只会执行一次</h1>
+<h1>防抖函数：高频函数n秒内没有重复调用，则执行一次，否则重新计时</h1>
+<input type="text" id="input">
+<script type="module">
+  // 手写节流函数
+  function throttle(fn,time) {
+    let valid = true
+    return function (...args) {
+      if(!valid) return false
+      valid = false
+      setTimeout(() => {
+        fn(...args)
+        valid = true
+      }, time)
+    }
+  }
 
+  window.addEventListener('mousemove',throttle(() => {
+    console.log('throttle mousemove!!')
+  },1000))
+</script>
+<script type="module">
+  // 手写防抖函数
+  function debounce (fn, time) {
+    let timer = null
+    return function (...args) {
+      if(timer !== null){
+        clearTimeout(timer)
+      }
+      timer = setTimeout(() => {
+        fn(...args)
+      }, time)
+    }
+  }
+
+  document.querySelector('#input').addEventListener('input',debounce(() => {
+    console.log('debounce input!!')
+    // alert('debounce input!!')
+  },1000))
+</script>
 </body>
 </html>

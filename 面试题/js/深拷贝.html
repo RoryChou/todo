@@ -5,6 +5,46 @@
   <title>Title</title>
 </head>
 <body>
+<h1>DFS实现一个深拷贝</h1>
+<h1>BFS实现一个深拷贝</h1>
 
+<script type="module">
+  //DFS实现一个深拷贝,我寻思一般的深拷贝不就是DFS递归么
+  function dfsDeepClone (target,map = new WeakMap()) {
+    // 边界条件，判断是否已经是基本类型了
+    if(typeof target !== 'object') {
+      return target
+    } else {
+      // 是个对象或者数组，需要遍历，然后递归
+      let newObj = Array.isArray(target)? [] : {}
+      // 判断是否循环引用
+      if(map.has(target)){
+        return target
+      }
+      map.set(target,newObj)
+      console.log(map)
+      for(let key in target){
+        let item = target[key]
+        newObj[key] = dfsDeepClone(item,map)
+      }
+      return newObj
+    }
+  }
+  let someObj = {
+    aaa:22
+  }
+  let obj = {
+    a:1,
+    b:{
+      c:2,
+      d:{
+        e:3,
+        f:0
+      },
+      g:{}
+    }
+  }
+  console.log(dfsDeepClone(obj))
+</script>
 </body>
 </html>

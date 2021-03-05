@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h1>深度优先遍历</h1>
+<h1>广度优先遍历</h1>
+
+<script type="module">
+  // 递归，深度遍历即前序遍历，根-左=右
+  /**
+   * Definition for a binary tree node.
+   * function TreeNode(val, left, right) {
+   *     this.val = (val===undefined ? 0 : val)
+   *     this.left = (left===undefined ? null : left)
+   *     this.right = (right===undefined ? null : right)
+   * }
+   */
+  /**
+   * @param {TreeNode} root
+   * @return {number[]}
+   */
+  function preorderTraversal (root) {
+    let res = []
+    recur(root)
+    function recur (node) {
+      if(node){
+        res.push(node.val)
+        recur(node.left)
+        recur(node.right)
+      }
+    }
+    return res
+  }
+</script>
+<script type="module">
+  // 广度优先遍历，即层序遍历，迭代，搞一个队列处理当前层node，同时增加下一层node，当前层处理好之后队列长度-1
+  /**
+   * Definition for a binary tree node.
+   * function TreeNode(val) {
+   *     this.val = val;
+   *     this.left = this.right = null;
+   * }
+   */
+  /**
+   * @param {TreeNode} root
+   * @return {number[][]}
+   */
+  function levelOrder (root) {
+    let res = []
+    let queue = [root]
+
+    while(queue.length>0){
+      let len = queue.length
+      const levelres = []
+      while(len){
+        let item = queue.shift()
+        if(item){
+          levelres.push(item.val)
+          if(item.left){
+            queue.push(item.left)
+          }
+          if(item.right){
+            queue.push(item.right)
+          }
+        }
+        len--
+      }
+      res.push(levelres)
+    }
+    return res
+  }
+</script>
+</body>
+</html>
